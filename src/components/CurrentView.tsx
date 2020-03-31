@@ -1,13 +1,14 @@
 import React,{ Component } from "react";
-import LeftPanel from "./LeftPanel";
+import Navbar from "./Navbar";
+import RegisteredUsersTable from "./RegisteredUsersTable";
 
 export default class CurrentView extends Component{
     state = {
-        currentView: <LeftPanel/>
+        currentView: <RegisteredUsersTable/>
     }
     render():JSX.Element {
         return (
-            <div style={{ width: "100%" }}>{this.state.currentView}</div>
+            <div >{this.state.currentView}</div>
         )
     }
 }
