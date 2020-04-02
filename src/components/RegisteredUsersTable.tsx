@@ -1,5 +1,10 @@
 import React,{ Component } from "react";
 import { TableContainer, Paper, TableHead, TableRow, TableCell, Container, TableBody, Table, withStyles } from "@material-ui/core";
+import generateRandomRegistration from "../functions/generateRandomRegistration";
+import RegistrationModel from "../models/RegistrationModel";
+
+const users = Array(30).fill(0).map(()=>generateRandomRegistration())
+
 
 export default class RegisteredUsersTable extends Component{
     render(): JSX.Element{
@@ -14,24 +19,19 @@ export default class RegisteredUsersTable extends Component{
                     <TableCell style={{ fontWeight: 1000 }}>Number</TableCell>
                 </TableRow>
             </TableHead>
-            <TableBody style={{marginBlock:"50vh"}}>
-                <TableRow>
-                        <TableCell >
-                            asd
-                    </TableCell>
-                        <TableCell>
-                            asd
-                    </TableCell>
-                        <TableCell>
-                            asd
-                    </TableCell>
-                        <TableCell>
-                            asd
-                    </TableCell>
-                        <TableCell>
-                            asd
-                    </TableCell>
-                </TableRow>
+            <TableBody >
+                    {users.map(u => {
+                    return (
+                      <TableRow>
+                            <TableCell>{u.name}</TableCell>
+                        <TableCell>{u.age}</TableCell>
+                        <TableCell>{u.country}</TableCell>
+                        <TableCell>{u.email}</TableCell>
+                        <TableCell>{u.phoneNumber}</TableCell>
+                      </TableRow>
+                    );
+                })}
+                    
                 </TableBody>
             </Table>
         </TableContainer>)

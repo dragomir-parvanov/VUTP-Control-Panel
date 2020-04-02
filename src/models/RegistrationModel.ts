@@ -3,5 +3,5 @@ export default interface RegistrationModel {
     age: number,
     country: string,
     email: string,
-    phoneNumber:number
+    phoneNumber:string
 }

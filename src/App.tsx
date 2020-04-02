@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Navbar />
      
-      <Box maxHeight={"100%"} paddingTop={"3vh"} minHeight={"75vh"}><CurrentView/></Box>
+      <Box maxHeight={"100%"} minHeight={"75vh"}><CurrentView/></Box>
   
     </div>
   );
