@@ -6,8 +6,8 @@ export default function generateRandomRegistration(): RegistrationModel {
   const name = getRandomName();
   const age = Math.floor(Math.random() * 90);
   const registration: RegistrationModel = {
-    name: getRandomName(),
-    phoneNumber: "087" + Math.floor(Math.random() * 100000),
+    name: name,
+    phoneNumber: "087" + Math.floor(100000 +Math.random() * 100000),
     age: Math.floor(Math.random() * 90),
     country: getRandomCountry(),
     email: createRandomEmail(name, age)
@@ -16,11 +16,11 @@ export default function generateRandomRegistration(): RegistrationModel {
 }
 
 export function getRandomName(): string {
-  const options = ["Ivan", "Drago", "Petko", "Yordan", "Radostin", "Maria", "Samuil"];
+  const options = ["Ivan", "Drago", "Petar", "Yordan", "Maria", "Samuil"];
   return randomPicker(options);
 }
 export function getRandomCountry(): string {
-  const options = ["Bulgaria", "Serbia", "Macedonia", "Greece", "Romania", "Turkey"];
+  const options = ["Bulgaria", "Serbia", "Macedonia"];
   return randomPicker(options);
 }
 

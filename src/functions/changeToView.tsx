@@ -6,11 +6,15 @@ import Main from "../components/Main";
 const views = {
     main: <Main/>,
     registeredUsers: <RegisteredUsersTable />,
-    graphs: null,
-    settings: null,
-    about:null
+    graphs: <div/>,
+    settings: <div />,
+    about: <div />,
+    rado:<div/>
 }
 
+
 export default function changeToView(view: keyof typeof views): void{
-    gCurrentView.next(views[view] as never)
+    gCurrentView.next(views[view])
 }
+
+changeToView("rado")

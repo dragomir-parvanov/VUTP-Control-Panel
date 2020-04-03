@@ -16,9 +16,11 @@ export default class CurrentView extends Component<Props,State>{
     }
     componentDidMount() {
         gCurrentView.subscribe({
-            next: (view) => {
-            this.setState({currentView:view})
-        }})
+            next:
+                (view) => {
+                    this.setState({currentView:view})
+                }
+        })
     }
     render():JSX.Element {
         return (
