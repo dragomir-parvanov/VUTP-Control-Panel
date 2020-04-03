@@ -129,7 +129,9 @@ export default class Navbar extends Component<Props, State> {
           <Button onClick={() => changeToView("main")} color="inherit">
             Main
           </Button>
-          <Button color="inherit">Graphs</Button>
+          <Button onClick={() => changeToView("graphs")} color="inherit">
+            Graphs
+          </Button>
           <Button onClick={() => changeToView("registeredUsers")} color="inherit">
             Registered users
           </Button>

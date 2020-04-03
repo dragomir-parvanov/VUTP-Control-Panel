@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Chart, { ChartDataSets, ChartData } from "chart.js"
 
-interface DynamicChartProps {
+interface ChartProps {
     canvasId:string
   data: number[]
   dataLabel:string
@@ -10,7 +10,7 @@ interface DynamicChartProps {
   xAxisLabel: string,
   dataLabels: ChartData["labels"]
 }
-class DynamicChart extends Component<DynamicChartProps> {
+export default class StaticChart extends Component<ChartProps> {
   drawChart(): void {
     // creating dataset
       
@@ -24,12 +24,11 @@ class DynamicChart extends Component<DynamicChartProps> {
         throw new Error("Context is undefined")
     }
         
-const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-gradient.addColorStop(0, "#2196F3");
-gradient.addColorStop(1, "#21CBF3");
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "#2196F3");
+    gradient.addColorStop(1, "#21CBF3");
 
     
-      console.log("dATA",this.props.data)
     new Chart(ctx, {
       type: "line",
       data: {
@@ -61,13 +60,11 @@ gradient.addColorStop(1, "#21CBF3");
   }
   render() {
     return (
-      <div style={{width:"50%"}}>
+      
         <canvas width={"500px"} id={this.props.canvasId}>
-          HELLO
         </canvas>
-      </div>
+
     );
   }
 }
 
-export default DynamicChart;
