@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Toolbar, AppBar, IconButton, Typography, Button, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
+import { Toolbar, AppBar, IconButton, Typography, Button, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Divider, Paper } from "@material-ui/core";
 import { ControlCameraSharp, Star, StarBorderTwoTone } from "@material-ui/icons/";
 import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
@@ -22,31 +22,13 @@ type State = {
 const mainBranding = (): JSX.Element => {
   return (
     <React.Fragment>
-      <IconButton edge="start" color="inherit" aria-label="menu">
+      <IconButton onClick={() => changeToView("main")} edge="start" color="inherit" aria-label="menu">
         <ControlCameraSharp />
       </IconButton>
       <Typography style={{ marginRight: "3%" }} variant="h6">
         Control panel
       </Typography>
     </React.Fragment>
-  );
-};
-
-const aboutButton = (): JSX.Element => {
-  return (
-    <Button
-      style={{
-        height: "100%",
-        position: "absolute",
-        right: "5vh",
-        background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
-        boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
-        color: "white"
-      }}
-      color="inherit"
-    >
-      About
-    </Button>
   );
 };
 
@@ -60,7 +42,7 @@ export default class Navbar extends Component<Props, State> {
       this.setState({ verticalPhone: true });
     }
 
-    mediaQuery.addListener(mq => {
+    mediaQuery.addListener((mq) => {
       if (mq.matches) {
         this.setState({ verticalPhone: false });
       } else {
@@ -79,12 +61,12 @@ export default class Navbar extends Component<Props, State> {
 
   drawerList = () => (
     <div role="presentation" onClick={() => this.toggleDrawer(false)} onKeyDown={() => this.toggleDrawer(false)}>
-      <List>
+      <List color={"primary"}>
         {[
           { name: "Main", viewName: "main" },
           { name: "Graphs", viewName: "graphs" },
           { name: "Registered users", viewName: "registeredUsers" },
-          { name: "Settings", viewName: "settings" }
+          { name: "Settings", viewName: "settings" },
         ].map((info, index) => (
           <ListItem button key={info.name} onClick={() => changeToView(info.viewName as never)}>
             <ListItemIcon>{index % 2 === 0 ? <Star /> : <StarBorderTwoTone />}</ListItemIcon>
@@ -104,7 +86,7 @@ export default class Navbar extends Component<Props, State> {
   render(): JSX.Element {
     if (this.state.verticalPhone) {
       return (
-        <AppBar color="default" position="fixed" style={{ top: "auto", bottom: 0 }}>
+        <AppBar color={"primary"} position="fixed" style={{ top: "auto", bottom: 0 }}>
           <Toolbar>
             {mainBranding()}
             <IconButton
@@ -116,14 +98,14 @@ export default class Navbar extends Component<Props, State> {
               <MenuIcon style={{ marginLeft: "25vh" }}></MenuIcon>
             </IconButton>
           </Toolbar>
-          <SwipeableDrawer anchor="bottom" open={this.state.open} onClose={() => this.toggleDrawer(false)} onOpen={() => this.toggleDrawer(true)}>
+          <SwipeableDrawer color={"primary"} anchor="bottom" open={this.state.open} onClose={() => this.toggleDrawer(false)} onOpen={() => this.toggleDrawer(true)}>
             {this.drawerList()}
           </SwipeableDrawer>
         </AppBar>
       );
     }
     return (
-      <AppBar color={"transparent"} position="static" elevation={10} style={{ marginBottom: "3vh" }}>
+      <AppBar component={Paper} color={"primary"} position="static" elevation={10} style={{ marginBottom: "3vh" }}>
         <Toolbar>
           {mainBranding()}
           <Button onClick={() => changeToView("main")} color="inherit">
@@ -135,10 +117,23 @@ export default class Navbar extends Component<Props, State> {
           <Button onClick={() => changeToView("registeredUsers")} color="inherit">
             Registered users
           </Button>
-          <Button color="inherit" onClick={() => gCurrentView.next(<RegisteredUsersTable />)}>
+          <Button color="inherit" onClick={() => changeToView("settings")}>
             Settings
           </Button>
-          {aboutButton()}
+          <Button
+            onClick={() => changeToView("about")}
+            style={{
+              height: "100%",
+              position: "absolute",
+              right: "5vh",
+              background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+              boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
+              color: "white",
+            }}
+            color="inherit"
+          >
+            About
+          </Button>
         </Toolbar>
       </AppBar>
     );

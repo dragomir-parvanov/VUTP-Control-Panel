@@ -19,7 +19,9 @@ class DynamicChart extends Component<Props,State> {
     subscription?:Subscription
     componentDidMount() {
         const chart = this.drawChart()
-        
+      const gradient = chart.ctx!.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, "#2196F3");
+      gradient.addColorStop(1, "#21CBF3");
         this.subscription = this.props.newValuesStream.subscribe({
             next: (newValue) => {
                 if (chart.data.datasets?.length === 0) {
@@ -27,10 +29,16 @@ class DynamicChart extends Component<Props,State> {
                 }
             chart.data.datasets![0].data?.push(newValue)
             chart.data.labels?.push("a")
+            if (chart.data.datasets![0].data!.length > 10) {
+              chart.data.datasets![0].data!.shift()
+              chart.data.labels?.shift()
+            }
+            
                 chart.data = {
                     labels: chart.data.labels,
                     datasets: [
-                        {
+                      {
+                          backgroundColor:gradient,
                             label: this.props.dataLabel,
                             data: chart.data.datasets![0].data,
                             fill: true,
@@ -51,14 +59,15 @@ class DynamicChart extends Component<Props,State> {
            const canvas = document.getElementById(this.props.canvasId) as HTMLCanvasElement;
 
            const ctx = canvas.getContext("2d");
-
+        
            if (!ctx) {
              throw new Error("Context is undefined");
-           }
-
-           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, "#2196F3");
-            gradient.addColorStop(1, "#21CBF3");
+             
+      }
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, "#2196F3");
+      gradient.addColorStop(1, "#21CBF3");
+      
            return new Chart(ctx, {
              type: "line",
              data: {
@@ -66,6 +75,7 @@ class DynamicChart extends Component<Props,State> {
                datasets: [
                  {
                    label: this.props.dataLabel,
+                   
                    data: [],
                    fill: true,
                    backgroundColor: gradient,
@@ -77,7 +87,10 @@ class DynamicChart extends Component<Props,State> {
              options: {
                responsive: true,
                scales: {
-                 yAxes: [{ display: "hello", scaleLabel: { labelString: this.props.yAxisLabel, display: true } }],
+                 yAxes: [{
+                   ticks: {
+                     fontSize: 20
+                 },display: "hello", scaleLabel: { labelString: this.props.yAxisLabel, display: true,fontSize:20 } }],
                  xAxes: [{ scaleLabel: { labelString: this.props.xAxisLabel, display: true } }]
                },
                animation:{duration:0}
