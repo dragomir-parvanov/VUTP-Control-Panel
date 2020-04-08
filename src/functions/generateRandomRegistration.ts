@@ -4,11 +4,11 @@ import RegistrationModel from "../models/RegistrationModel";
 
 export default function generateRandomRegistration(): RegistrationModel {
   const name = getRandomName();
-  const age = Math.floor(Math.random() * 90);
+  const age = Math.floor(18+Math.random() * 70);
   const registration: RegistrationModel = {
     name: name,
     phoneNumber: "087" + Math.floor(100000 +Math.random() * 100000),
-    age: Math.floor(Math.random() * 90),
+    age: age,
     country: getRandomCountry(),
     email: createRandomEmail(name, age)
   };

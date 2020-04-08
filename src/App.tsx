@@ -1,32 +1,12 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import { Box, Container, Paper, ThemeProvider, createMuiTheme } from "@material-ui/core";
+import { Box, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import CurrentView from "./components/CurrentView";
-import { orange, green, blue, red, common } from "@material-ui/core/colors";
 import gCurrentTheme from "./globals/gCurrentTheme";
 
 import { skip } from "rxjs/operators";
-
-const outerTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: blue[500],
-    },
-    secondary: {
-      main: green[500],
-    },
-
-    background: {
-      default: "red",
-      paper: "red",
-    },
-    common: {
-      white: "red",
-    },
-  },
-});
+import WelcomeModal from "./components/WelcomeModal";
 
 function App() {
   const [theme, setTheme] = useState(createMuiTheme());
@@ -37,10 +17,10 @@ function App() {
   });
   return (
     <div className="App">
+      <WelcomeModal></WelcomeModal>
       <ThemeProvider theme={theme}>
         <Navbar />
-
-        <Box maxHeight={"100%"} minHeight={"75vh"}>
+        <Box maxWidth={"100%"}>
           <CurrentView />
         </Box>
       </ThemeProvider>

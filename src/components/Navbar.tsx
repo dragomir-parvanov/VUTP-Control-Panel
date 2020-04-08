@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { Toolbar, AppBar, IconButton, Typography, Button, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Divider, Paper } from "@material-ui/core";
-import { ControlCameraSharp, Star, StarBorderTwoTone } from "@material-ui/icons/";
+import { ControlCameraSharp, LinearScaleSharp, InfoSharp, TableChartSharp, SettingsSharp } from "@material-ui/icons/";
 import MenuIcon from "@material-ui/icons/Menu";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import changeToView from "../functions/changeToView";
-import gCurrentView from "../globals/gCurrentView";
-import RegisteredUsersTable from "./RegisteredUsersTable";
 
 type Props = {};
 type State = {
@@ -25,9 +21,11 @@ const mainBranding = (): JSX.Element => {
       <IconButton onClick={() => changeToView("main")} edge="start" color="inherit" aria-label="menu">
         <ControlCameraSharp />
       </IconButton>
-      <Typography style={{ marginRight: "3%" }} variant="h6">
-        Control panel
-      </Typography>
+      <Button style={{ minWidth: "140px", display: "inline-block", padding: 0, minHeight: 0 }} color={"inherit"}>
+        <Typography onClick={() => changeToView("main")} style={{ marginRight: "3%", textTransform: "none" }} variant={"h6"}>
+          Control panel
+        </Typography>
+      </Button>
     </React.Fragment>
   );
 };
@@ -62,22 +60,38 @@ export default class Navbar extends Component<Props, State> {
   drawerList = () => (
     <div role="presentation" onClick={() => this.toggleDrawer(false)} onKeyDown={() => this.toggleDrawer(false)}>
       <List color={"primary"}>
-        {[
-          { name: "Main", viewName: "main" },
-          { name: "Graphs", viewName: "graphs" },
-          { name: "Registered users", viewName: "registeredUsers" },
-          { name: "Settings", viewName: "settings" },
-        ].map((info, index) => (
-          <ListItem button key={info.name} onClick={() => changeToView(info.viewName as never)}>
-            <ListItemIcon>{index % 2 === 0 ? <Star /> : <StarBorderTwoTone />}</ListItemIcon>
-            <ListItemText primary={info.name} />
-          </ListItem>
-        ))}
+        <ListItem button key={"main"} onClick={() => changeToView("main")}>
+          <ListItemIcon>
+            <ControlCameraSharp></ControlCameraSharp>
+          </ListItemIcon>
+          <ListItemText>Main</ListItemText>
+        </ListItem>
+        <ListItem button key={"graphs"} onClick={() => changeToView("graphs")}>
+          <ListItemIcon>
+            <LinearScaleSharp></LinearScaleSharp>
+          </ListItemIcon>
+          <ListItemText>Graphs</ListItemText>
+        </ListItem>
+        <ListItem button key={"registeredUsers"} onClick={() => changeToView("registeredUsers")}>
+          <ListItemIcon>
+            <TableChartSharp></TableChartSharp>
+          </ListItemIcon>
+          <ListItemText>Registered users</ListItemText>
+        </ListItem>
+        <ListItem button key={"settings"} onClick={() => changeToView("settings")}>
+          <ListItemIcon>
+            <SettingsSharp></SettingsSharp>
+          </ListItemIcon>
+          <ListItemText>Settings</ListItemText>
+        </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem onClick={() => changeToView("about")}>
-          <ListItemText> About</ListItemText>
+          <ListItemIcon>
+            <InfoSharp></InfoSharp>
+          </ListItemIcon>
+          <ListItemText>About</ListItemText>
         </ListItem>
       </List>
     </div>
@@ -89,14 +103,16 @@ export default class Navbar extends Component<Props, State> {
         <AppBar color={"primary"} position="fixed" style={{ top: "auto", bottom: 0 }}>
           <Toolbar>
             {mainBranding()}
-            <IconButton
-              onClick={() => {
-                this.toggleDrawer(true);
-                console.log("hello");
-              }}
-            >
-              <MenuIcon style={{ marginLeft: "25vh" }}></MenuIcon>
-            </IconButton>
+            <div style={{ width: "100%" }}>
+              <IconButton
+                style={{ position: "absolute", right: "18px", top: "10%" }}
+                onClick={() => {
+                  this.toggleDrawer(true);
+                }}
+              >
+                <MenuIcon></MenuIcon>
+              </IconButton>
+            </div>
           </Toolbar>
           <SwipeableDrawer color={"primary"} anchor="bottom" open={this.state.open} onClose={() => this.toggleDrawer(false)} onOpen={() => this.toggleDrawer(true)}>
             {this.drawerList()}
@@ -105,12 +121,9 @@ export default class Navbar extends Component<Props, State> {
       );
     }
     return (
-      <AppBar component={Paper} color={"primary"} position="static" elevation={10} style={{ marginBottom: "3vh" }}>
+      <AppBar component={Paper} color={"primary"} position="static" elevation={10}>
         <Toolbar>
           {mainBranding()}
-          <Button onClick={() => changeToView("main")} color="inherit">
-            Main
-          </Button>
           <Button onClick={() => changeToView("graphs")} color="inherit">
             Graphs
           </Button>

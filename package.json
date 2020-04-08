@@ -17,9 +17,11 @@
     "@types/react-color": "^3.0.1",
     "@types/react-dom": "^16.9.5",
     "chart.js": "^2.9.3",
-    "d3": "^5.15.1",
+    "core-js": "^3.6.4",
+    "core-js-pure": "^3.6.4",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-color": "^2.18.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
@@ -42,6 +44,7 @@
       "not op_mini all"
     ],
     "development": [
+      "ie 11",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"

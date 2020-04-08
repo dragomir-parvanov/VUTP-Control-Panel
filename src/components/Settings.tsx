@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Paper, Typography, Color, createMuiTheme, GridList, GridListTile, Button } from "@material-ui/core";
 import { SketchPicker } from "react-color";
 import gCurrentTheme from "../globals/gCurrentTheme";
+import PAPER_PADDING from "../contstants/PAPER_PADDING";
 type Props = {};
 
 type State = {
@@ -25,7 +26,7 @@ export default class Settings extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <Paper>
+      <Paper elevation={10} style={{ padding: PAPER_PADDING }}>
         <Typography style={{ fontSize: 20 }} color={"secondary"} variant={"caption"}>
           Changing the color of the control panel
         </Typography>
@@ -65,7 +66,7 @@ export default class Settings extends Component<Props, State> {
             ></SketchPicker>
           </GridListTile>
           <GridListTile style={gridTileStyle}>
-            <Typography>Change primary color</Typography>
+            <Typography>Change secondary color</Typography>
             <SketchPicker
               onChange={(color) => {
                 this.setState({ secondary: color.hex });
@@ -90,7 +91,7 @@ export default class Settings extends Component<Props, State> {
           </GridListTile>
           <GridListTile style={gridTileStyle}>
             <Button
-              style={{ marginTop: "50%" }}
+              style={{ marginTop: "30%" }}
               variant={"outlined"}
               onClick={() => {
                 gCurrentTheme.next(createMuiTheme({ palette: { type: "dark" } }));
@@ -98,7 +99,7 @@ export default class Settings extends Component<Props, State> {
                 document.body.style.background = "grey";
               }}
             >
-              DarkTheme
+              Dark Theme
             </Button>
           </GridListTile>
         </GridList>
