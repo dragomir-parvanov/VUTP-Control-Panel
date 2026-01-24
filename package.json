@@ -19,7 +19,7 @@
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
     "core-js-pure": "^3.6.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.23",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-color": "^2.18.0",
